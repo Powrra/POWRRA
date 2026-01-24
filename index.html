@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POWWRA | Defending Water Rights in WRIA 1</title>
+    <meta name="description" content="Property Owners Water Well Rights Alliance defending well rights against Ecology's water adjudication in Whatcom County WRIA 1.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600;700&display=swap');
+
+        :root {
+            --color-bg: #fdfbf7;
+            --color-text: #2d3748;
+            --color-primary: #2c5282;
+            --color-accent: #c05621;
+            --color-alert: #e53e3e;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-2px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-active {
+            border-bottom: 2px solid var(--color-accent);
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .legal-section {
+            background: #f7fafc;
+            border-left: 4px solid var(--color-primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .treaty-quote {
+            background: #edf2f7;
+            border-left: 4px solid var(--color-accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-xl md:text-2xl font-bold text-blue-900 font-serif leading-none">POWWRA</span>
+                <span class="hidden md:block text-[10px] uppercase tracking-widest text-gray-500 mt-1">Property Owners Water Well Rights Alliance</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <button onclick="navTo('home')" id="nav-home" class="nav-btn text-gray-600 hover:text-blue-800 transition text-sm font-semibold">Home</button>
+                <button onclick="navTo('timeline')" id="nav-timeline" class="nav-btn text-gray-600 hover:text-blue-800 transition text-sm font-semibold">What's Happening</button>
+                <button onclick="navTo('defense')" id="nav-defense" class="nav-btn text-gray-600 hover:text-blue-800 transition text-sm font-semibold">Legal Argument</button>
+                <button onclick="navTo('action')" id="nav-action" class="nav-btn text-gray-600 hover:text-blue-800 transition text-sm font-semibold">Join & Donate</button>
+            </div>
+            <button class="md:hidden text-gray-600" onclick="toggleMobileNav()">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-50 border-t">
+            <button onclick="navTo('home')" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">Home</button>
+            <button onclick="navTo('timeline')" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">What's Happening</button>
+            <button onclick="navTo('defense')" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">Legal Argument</button>
+            <button onclick="navTo('action')" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">Join & Donate</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="app-content" class="flex-grow">
+        <!-- JS Content Injection -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12 mt-12" id="site-footer">
+        <!-- Footer content loaded by script -->
+    </footer>
+
+    <script>
+        // CONTENT LOADING FROM CMS
+        let content = {
+            settings: null,
+            home: null,
+            timeline: null
+        };
+
+        // Load content from JSON files
+        async function loadContent() {
+            try {
+                const [settings, home, timeline] = await Promise.all([
+                    fetch('/content/site-settings.json').then(r => r.json()),
+                    fetch('/content/home-page.json').then(r => r.json()),
+                    fetch('/content/timeline-page.json').then(r => r.json())
+                ]);
+                content.settings = settings;
+                content.home = home;
+                content.timeline = timeline;
+                return true;
+            } catch (error) {
+                console.error('Error loading content:', error);
+                // Fallback to hardcoded values if JSON fails
+                return false;
+            }
+        }
+
+        // UPDATE THESE WITH YOUR ACTUAL LINKS (fallback if JSON fails):
+        const STRIPE_LINK = "https://donate.stripe.com/8x2fZhgyp57u9VV5UT0sU00";
+        const VENMO_USERNAME = "POWWRA"; // Change to your actual Venmo username
+
+        let state = { currentView: 'home', contentLoaded: false };
+
+        // Render footer with settings from JSON
+        function renderFooter() {
+            const settings = content.settings || {
+                organizationName: 'POWWRA',
+                address: '6567 Lunde Rd<br>Everson, WA 98247',
+                contactEmail: 'contact@powwra.org',
+                facebookUrl: 'https://www.facebook.com/groups/883286004361761/'
+            };
+
+            document.getElementById('site-footer').innerHTML = `
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-12 text-sm">
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4 font-serif">${settings.organizationName}</h4>
+                <p class="mb-4 leading-relaxed">Defending property owners' water rights in WRIA 1 through legal challenge and coordinated advocacy.</p>
+                <p class="mb-4 text-sm">
+                    ${settings.address}
+                </p>
+                <div class="flex space-x-4">
+                    <a href="${settings.facebookUrl}" target="_blank" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="mailto:${settings.contactEmail}" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4 font-serif">Our Mission</h4>
+                <p>We are property owners challenging Ecology's assertion that tribal governments hold senior federal water rights that override historical well use. We believe this claim misreads treaty law and federal jurisdiction.</p>
+            </div>
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4 font-serif">Legal Disclaimer</h4>
+                <p class="text-xs text-gray-500">This site provides legal information and advocacy strategy. It is not legal advice. Property owners should consult qualified water rights attorneys about their specific situations.</p>
+            </div>
+        </div>
+            `;
+        }
+
+        function navTo(view, skipHistory = false) {
+            state.currentView = view;
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
+            const activeBtn = document.getElementById(`nav-${view}`);
+            if(activeBtn) activeBtn.classList.add('nav-active');
+            document.getElementById('mobile-menu').classList.add('hidden');
+
+            // Update browser history so back button works
+            if (!skipHistory) {
+                history.pushState({ view: view }, '', '#' + view);
+            }
+
+            render();
+            window.scrollTo(0, 0);
+        }
+
+        // Handle back/forward button
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.view) {
+                navTo(event.state.view, true);
+            } else {
+                // If no state, check URL hash
+                const hash = window.location.hash.substring(1);
+                const view = hash || 'home';
+                navTo(view, true);
+            }
+        });
+
+        // Initialize based on URL hash on page load
+        window.addEventListener('DOMContentLoaded', async function() {
+            // Load content from JSON files first
+            state.contentLoaded = await loadContent();
+
+            // Render footer with loaded content
+            renderFooter();
+
+            const hash = window.location.hash.substring(1);
+            if (hash && ['home', 'timeline', 'defense', 'action'].includes(hash)) {
+                navTo(hash, false);
+            } else {
+                // Set initial state
+                history.replaceState({ view: 'home' }, '', '#home');
+                render();
+            }
+        });
+
+        function toggleMobileNav() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+
+        function render() {
+            const main = document.getElementById('app-content');
+            main.innerHTML = '';
+            if (state.currentView === 'home') renderHome(main);
+            else if (state.currentView === 'timeline') renderTimeline(main);
+            else if (state.currentView === 'defense') renderDefense(main);
+            else if (state.currentView === 'action') renderAction(main);
+        }
+
+        // HOME PAGE
+        function renderHome(container) {
+            // Use content from JSON or fallback to defaults
+            const hero = content.home?.hero || {
+                headline: "Defending Our Wells and Property Rights in WRIA 1",
+                subheadline: "Property owners in Whatcom County's Nooksack Basin face an unprecedented threat to existing wells, farms, and land values. We believe Ecology's \"tribal trust\" water rights theory is legally and historically false.",
+                primaryButtonText: "JOIN THE DEFENSE",
+                secondaryButtonText: "WHAT'S HAPPENING?"
+            };
+
+            container.innerHTML = `
+                <section class="bg-blue-900 text-white py-20 px-4 relative">
+                    <div class="container mx-auto max-w-5xl text-center relative z-10">
+                        <h1 class="text-3xl md:text-5xl font-bold mb-6 tracking-tight">${hero.headline}</h1>
+                        <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto font-light">${hero.subheadline}</p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button onclick="navTo('action')" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-10 rounded-lg shadow-xl transition transform hover:scale-105">${hero.primaryButtonText}</button>
+                            <button onclick="navTo('timeline')" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold py-4 px-10 rounded-lg transition">${hero.secondaryButtonText}</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-16 bg-white border-b">
+                    <div class="container mx-auto px-4 max-w-4xl">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl font-bold text-gray-800 mb-4">The Core Problem</h2>
+                            <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-12 items-start">
+                            <div class="space-y-4 text-gray-700 leading-relaxed">
+                                <h3 class="font-bold text-xl text-blue-900 mb-3">Ecology Claims:</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start"><i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i><span>Tribal governments have senior federal water rights on "trust lands" that trump all other uses</span></li>
+                                    <li class="flex items-start"><i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i><span>These rights come from the Point Elliott Treaty of 1855</span></li>
+                                    <li class="flex items-start"><i class="fas fa-circle text-blue-500 text-xs mt-2 mr-3"></i><span>Property owners must prove their wells don't impair these tribal claims</span></li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 p-8 rounded-2xl border border-blue-100 shadow-inner">
+                                <h3 class="font-bold text-xl text-blue-900 mb-4">Our Position:</h3>
+                                <ul class="space-y-3 text-gray-700">
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i><span>Treaty-reserved water rights were created for <strong>individual Indian allottees</strong>, not corporate tribal governments</span></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i><span>These individual allotments were later placed under <strong>state jurisdiction</strong> by federal law</span></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i><span>Ecology's "tribal trust seniority" theory misreads the treaty, federal law, and Supreme Court precedent</span></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i><span>We must challenge jurisdiction <strong>first</strong> before being forced into "collaboration"</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-16 bg-red-600 text-white">
+                    <div class="container mx-auto px-4 max-w-5xl text-center">
+                        <h2 class="text-3xl font-bold mb-8 uppercase tracking-widest">CRITICAL IMPACT</h2>
+                        <div class="grid md:grid-cols-3 gap-8 items-center">
+                            <div class="bg-white/10 p-10 rounded-3xl backdrop-blur-sm border border-white/20">
+                                <span class="text-sm uppercase font-bold text-blue-200">Current Right</span>
+                                <div class="text-6xl font-black my-4">${content.home?.impact?.currentRight || '5,000'}</div>
+                                <span class="text-lg">${content.home?.impact?.unit || 'Gallons Per Day'}</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-16 h-16 bg-white text-red-600 rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-xl">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <p class="text-xl italic font-serif">Could be reduced to...</p>
+                            </div>
+                            <div class="bg-white p-10 rounded-3xl shadow-2xl border-4 border-red-700">
+                                <span class="text-sm uppercase font-bold text-gray-500 tracking-widest">Potential Future</span>
+                                <div class="text-7xl font-black text-red-600 my-4">${content.home?.impact?.potentialFuture || '350'}</div>
+                                <span class="text-lg text-gray-800 font-bold">${content.home?.impact?.unit || 'Gallons Per Day'}</span>
+                            </div>
+                        </div>
+                        <p class="mt-12 text-lg text-red-100 max-w-3xl mx-auto">${content.home?.impact?.description || "If Ecology's theory stands, your existing domestic, farm, or business well could be deemed \"junior\" to tribal claims—forcing you to meter, curtail, or abandon wells you've used for decades."}</p>
+                    </div>
+                </section>
+
+                <section class="py-16 bg-gray-50">
+                    <div class="container mx-auto px-4 max-w-4xl">
+                        <h2 class="text-3xl font-bold text-center mb-12">What's At Stake</h2>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
+                                <h4 class="font-bold text-lg mb-3 text-red-700"><i class="fas fa-exclamation-triangle mr-2"></i>Well Restrictions</h4>
+                                <p class="text-gray-700">Your well may be forced to meter, curtail pumping, or shut down during dry periods</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
+                                <h4 class="font-bold text-lg mb-3 text-red-700"><i class="fas fa-home mr-2"></i>Property Value Loss</h4>
+                                <p class="text-gray-700">Reliable water access becomes uncertain, reducing your property value</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
+                                <h4 class="font-bold text-lg mb-3 text-red-700"><i class="fas fa-gavel mr-2"></i>Settlement Pressure</h4>
+                                <p class="text-gray-700">You may be pressured to accept limitations without testing legal claims in court</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
+                                <h4 class="font-bold text-lg mb-3 text-red-700"><i class="fas fa-tractor mr-2"></i>Farm Operations</h4>
+                                <p class="text-gray-700">Agricultural operations could be curtailed, threatening your livelihood</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-16 bg-white">
+                    <div class="container mx-auto px-4 max-w-4xl">
+                        <h2 class="text-3xl font-bold text-center mb-12">Our Strategy</h2>
+                        <div class="space-y-6">
+                            <div class="flex gap-6 items-start bg-blue-50 p-6 rounded-xl">
+                                <div class="text-3xl font-black text-blue-900 min-w-[3rem]">01</div>
+                                <div>
+                                    <h4 class="font-bold text-xl mb-2">Challenge Jurisdiction</h4>
+                                    <p class="text-gray-700">File motions questioning whether Ecology and tribal governments have legal standing to assert these federal trust-based claims</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6 items-start bg-blue-50 p-6 rounded-xl">
+                                <div class="text-3xl font-black text-blue-900 min-w-[3rem]">02</div>
+                                <div>
+                                    <h4 class="font-bold text-xl mb-2">Demand Proof</h4>
+                                    <p class="text-gray-700">Require Ecology and tribes to prove trust boundaries, treaty basis, and actual water use—not just assert claims</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6 items-start bg-blue-50 p-6 rounded-xl">
+                                <div class="text-3xl font-black text-blue-900 min-w-[3rem]">03</div>
+                                <div>
+                                    <h4 class="font-bold text-xl mb-2">Organize Landowners</h4>
+                                    <p class="text-gray-700">Build a unified coalition to fund experienced water rights attorneys and expert witnesses</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-6 items-start bg-blue-50 p-6 rounded-xl">
+                                <div class="text-3xl font-black text-blue-900 min-w-[3rem]">04</div>
+                                <div>
+                                    <h4 class="font-bold text-xl mb-2">Preserve Rights</h4>
+                                    <p class="text-gray-700">Help property owners file protective claims without waiving jurisdictional defenses</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 text-center">
+                            <button onclick="navTo('defense')" class="bg-blue-900 text-white font-bold py-4 px-10 rounded-lg shadow-lg hover:bg-blue-800 transition">READ OUR LEGAL ARGUMENT</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DONATION SECTION -->
+                <section class="py-16 bg-blue-900 text-white">
+                    <div class="container mx-auto px-4 max-w-4xl text-center">
+                        <h2 class="text-3xl font-bold mb-6">Support the Legal Defense Fund</h2>
+                        <p class="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">Your contribution funds experienced attorneys, expert witnesses, and documentary research to challenge Ecology's water rights claims.</p>
+
+                        <div class="grid md:grid-cols-${(content.settings?.stripeLink || STRIPE_LINK) ? '2' : '1'} gap-6 max-w-2xl mx-auto">
+                            ${(content.settings?.stripeLink || STRIPE_LINK) ? `
+                            <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+                                <h3 class="font-bold text-xl mb-4">Credit/Debit Card</h3>
+                                <a href="${content.settings?.stripeLink || STRIPE_LINK}" target="_blank" class="block w-full bg-orange-600 py-4 rounded-xl font-black text-xl hover:bg-orange-500 transition shadow-lg">DONATE VIA STRIPE</a>
+                                <p class="text-sm text-blue-200 mt-3">Secure payment • Automatic receipt</p>
+                            </div>
+                            ` : ''}
+
+                            <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
+                                <h3 class="font-bold text-xl mb-4">Quick Venmo</h3>
+                                <a href="https://venmo.com/${content.settings?.venmoUsername || VENMO_USERNAME}" target="_blank" class="block w-full bg-blue-500 py-4 rounded-xl font-black text-xl hover:bg-blue-400 transition shadow-lg">DONATE VIA VENMO</a>
+                                <p class="text-sm text-blue-200 mt-3">@${content.settings?.venmoUsername || VENMO_USERNAME} • Instant transfer</p>
+                            </div>
+                        </div>
+
+                        ${(content.settings?.stripeLink || STRIPE_LINK) ? '' : '<p class="text-sm text-blue-300 mt-6">Credit card donations via Stripe coming soon!</p>'}
+
+                        <p class="text-sm text-blue-200 mt-8">POWWRA is a ${content.settings?.nonprofitStatus || '501(c)(4)'} nonprofit. Donations are not tax deductible.</p>
+                    </div>
+                </section>
+            `;
+        }
+
+        // TIMELINE PAGE
+        function renderTimeline(container) {
+            container.innerHTML = `
+                <section class="bg-gray-100 py-12 border-b">
+                    <div class="container mx-auto px-4 max-w-4xl text-center">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">What's Happening to Our Water?</h2>
+                        <p class="text-gray-600 italic">Understanding the WRIA 1 Water Rights Adjudication</p>
+                    </div>
+                </section>
+
+                <!-- URGENT DEADLINE NOTICE -->
+                <section class="bg-gradient-to-r from-red-600 to-orange-600 text-white py-8 shadow-lg">
+                    <div class="container mx-auto px-4 max-w-5xl text-center">
+                        <div class="inline-block bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full mb-3">
+                            <span class="text-sm font-bold uppercase tracking-wider">⚠️ URGENT DEADLINE ⚠️</span>
+                        </div>
+                        <h3 class="text-4xl md:text-5xl font-black mb-3 tracking-tight drop-shadow-lg">MAY 1, 2026 DEADLINE APPROACHING</h3>
+                        <p class="text-xl md:text-2xl font-bold mb-2">DON'T File Alone - Join POWWRA's Coordinated Legal Challenge</p>
+                        <p class="text-lg text-white/90 max-w-3xl mx-auto">
+                            <span class="font-bold text-yellow-300">Filing with the state without legal support could make you sign away your rights.</span>
+                            Join POWWRA to defend your well through coordinated legal action before the deadline.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="py-12 bg-white">
+                    <div class="container mx-auto px-4 max-w-5xl">
+                        <div class="mb-12">
+                            <h3 class="text-2xl font-bold mb-4">What Is a Water Adjudication?</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">A water rights adjudication is a court process where the state attempts to identify and rank <strong>every</strong> water right in a watershed. In theory, this brings order to competing claims. In practice for WRIA 1, it threatens to subordinate your existing well to claims you've never had to defend against before.</p>
+                            <p class="text-gray-700 leading-relaxed">Washington State's Department of Ecology filed this adjudication in Whatcom County Superior Court in <strong>July 2024</strong>, covering the entire Nooksack River Basin (WRIA 1). This affects thousands of property owners with domestic wells, farm irrigation, livestock water, and small businesses.</p>
+                        </div>
+
+                        <div class="mb-12">
+                            <h3 class="text-2xl font-bold mb-6 text-center">Adjudication Timeline: How We Got Here</h3>
+                            <div class="chart-container mb-8"><canvas id="timelineChart"></canvas></div>
+                            <div id="timeline-details" class="max-w-3xl mx-auto bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 text-center">
+                                <i class="fas fa-mouse-pointer text-2xl text-blue-300 mb-4"></i>
+                                <p class="text-gray-500">Click a point on the chart to see event details.</p>
+                            </div>
+                        </div>
+
+                        <!-- LEGAL PRECEDENT TIMELINE -->
+                        <div class="mb-12 bg-blue-50 p-8 rounded-xl border border-blue-200">
+                            <h3 class="text-2xl font-bold mb-6 text-center text-blue-900">Legal Foundation: Key Treaties, Acts & Cases</h3>
+                            <p class="text-center text-gray-700 mb-8 max-w-3xl mx-auto">
+                                Our legal argument is grounded in over 150 years of federal law, Supreme Court precedent, and Washington State water code.
+                                These are the foundational authorities we rely on:
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                                <div class="bg-white p-6 rounded-lg shadow-sm border border-blue-100">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-2xl font-black text-blue-900">1855</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900 mb-1">Point Elliott Treaty</h4>
+                                            <p class="text-sm text-gray-600">Article 6 - Individual allotments "in severalty" to Indian families, not tribal government ownership</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-lg shadow-sm border border-blue-100">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-2xl font-black text-blue-900">1887</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900 mb-1">Dawes Act</h4>
+                                            <p class="text-sm text-gray-600">General Allotment Act - Authorized individual Indian allotments under state jurisdiction</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-lg shadow-sm border border-blue-100">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-2xl font-black text-blue-900">1906</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900 mb-1">Burke Act & Goudy v. Meath</h4>
+                                            <p class="text-sm text-gray-600">Allottees under state law; 203 U.S. 146 - State law governs water rights on allotted lands</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-lg shadow-sm border border-blue-100">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-2xl font-black text-blue-900">1908</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900 mb-1">Winters v. United States</h4>
+                                            <p class="text-sm text-gray-600">207 U.S. 564 - Reserved rights for specific reservation lands at time of creation, not later claims</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-lg shadow-sm border border-blue-100">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-2xl font-black text-blue-900">1953</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900 mb-1">Public Law 280</h4>
+                                            <p class="text-sm text-gray-600">Extended Washington State civil and criminal jurisdiction over Indian lands</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-lg shadow-sm border border-blue-100">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-2xl font-black text-blue-900">1963</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900 mb-1">Arizona v. California</h4>
+                                            <p class="text-sm text-gray-600">373 U.S. 546 - Reserved rights tied to specific purposes and boundaries at time of reservation</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 bg-white p-6 rounded-lg border-2 border-blue-300">
+                                <h4 class="font-bold text-center text-blue-900 mb-3">Additional Authorities</h4>
+                                <div class="grid md:grid-cols-2 gap-2 text-sm text-gray-700">
+                                    <div>• <strong>McCarran Amendment</strong> (43 U.S.C. § 666)</div>
+                                    <div>• <strong>WA State Water Code</strong> (RCW 90.03 & 90.44)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- WHAT'S HAPPENING - EVENTS & PUBLIC MEETINGS -->
+                        <div class="mb-12 bg-gradient-to-br from-orange-50 to-yellow-50 p-8 rounded-xl border-2 border-orange-200 shadow-lg">
+                            <div class="text-center mb-6">
+                                <div class="inline-block bg-orange-600 text-white px-6 py-2 rounded-full mb-4">
+                                    <i class="fas fa-calendar-alt mr-2"></i>
+                                    <span class="font-bold uppercase tracking-wide">Events & Meetings</span>
+                                </div>
+                                <h3 class="text-3xl font-bold text-orange-900 mb-3">What's Happening Now</h3>
+                                <p class="text-gray-700 max-w-2xl mx-auto">
+                                    Stay informed about upcoming public meetings, Ecology hearings, and community gatherings related to WRIA 1 adjudication.
+                                </p>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                                <!-- Example Event 1 -->
+                                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
+                                    <div class="flex items-start gap-4 mb-3">
+                                        <div class="w-16 h-16 bg-orange-100 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+                                            <span class="text-xs text-orange-600 font-bold uppercase">TBA</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900">Public Information Sessions</h4>
+                                            <p class="text-sm text-gray-600"><i class="fas fa-map-marker-alt mr-1 text-orange-500"></i>Whatcom County</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-3">
+                                        Ecology and Whatcom County are hosting public information sessions for property owners. Dates and locations to be announced.
+                                    </p>
+                                    <div class="flex gap-2 flex-wrap">
+                                        <span class="inline-block bg-orange-100 text-orange-800 text-xs font-semibold px-3 py-1 rounded-full">Public Meeting</span>
+                                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Q&A Available</span>
+                                    </div>
+                                </div>
+
+                                <!-- POWWRA Meeting 1 -->
+                                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                                    <div class="flex items-start gap-4 mb-3">
+                                        <div class="w-16 h-16 bg-blue-100 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+                                            <span class="text-lg text-blue-600 font-bold">20</span>
+                                            <span class="text-xs text-blue-600 font-bold">JAN</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900">POWWRA Community Meeting</h4>
+                                            <p class="text-sm text-gray-600"><i class="fas fa-clock mr-1 text-blue-500"></i>Tuesday, 6:30 PM</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-2 font-bold">
+                                        Victor Community Club
+                                    </p>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        887 E. Smith Rd., Bellingham, WA
+                                    </p>
+                                    <p class="text-xs text-gray-700 mb-3">
+                                        Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.
+                                    </p>
+                                    <div class="flex gap-2 flex-wrap">
+                                        <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Community Organized</span>
+                                        <span class="inline-block bg-purple-100 text-purple-800 text-xs font-semibold px-3 py-1 rounded-full">Legal Info</span>
+                                    </div>
+                                </div>
+
+                                <!-- POWWRA Meeting 2 -->
+                                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                                    <div class="flex items-start gap-4 mb-3">
+                                        <div class="w-16 h-16 bg-blue-100 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+                                            <span class="text-lg text-blue-600 font-bold">22</span>
+                                            <span class="text-xs text-blue-600 font-bold">JAN</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900">POWWRA Community Meeting</h4>
+                                            <p class="text-sm text-gray-600"><i class="fas fa-clock mr-1 text-blue-500"></i>Thursday, 6:30 PM</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-2 font-bold">
+                                        Haynie Grange
+                                    </p>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        3344 Haynie Rd., Blaine, WA
+                                    </p>
+                                    <p class="text-xs text-gray-700 mb-3">
+                                        Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.
+                                    </p>
+                                    <div class="flex gap-2 flex-wrap">
+                                        <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Community Organized</span>
+                                        <span class="inline-block bg-purple-100 text-purple-800 text-xs font-semibold px-3 py-1 rounded-full">Legal Info</span>
+                                    </div>
+                                </div>
+
+                                <!-- Example Event 3 -->
+                                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
+                                    <div class="flex items-start gap-4 mb-3">
+                                        <div class="w-16 h-16 bg-red-100 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+                                            <span class="text-xs text-red-600 font-bold uppercase">Ongoing</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900">Summons Service Period</h4>
+                                            <p class="text-sm text-gray-600"><i class="fas fa-calendar-check mr-1 text-red-500"></i>Now - 2026</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-3">
+                                        Property owners are currently receiving summons notices. If you receive one, you have until 2026 to file your water rights claim.
+                                    </p>
+                                    <div class="flex gap-2 flex-wrap">
+                                        <span class="inline-block bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full">Action Required</span>
+                                    </div>
+                                </div>
+
+                                <!-- Example Event 4 -->
+                                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+                                    <div class="flex items-start gap-4 mb-3">
+                                        <div class="w-16 h-16 bg-green-100 rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+                                            <span class="text-xs text-green-600 font-bold uppercase">Online</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg text-gray-900">Ecology Resources & Updates</h4>
+                                            <p class="text-sm text-gray-600"><i class="fas fa-globe mr-1 text-green-500"></i>ecology.wa.gov</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mb-3">
+                                        Washington State Ecology publishes updates, FAQ documents, and procedural information on their WRIA 1 adjudication website.
+                                    </p>
+                                    <a href="https://ecology.wa.gov/water-shorelines/water-supply/water-rights/adjudications/nooksack" target="_blank" class="text-blue-600 hover:text-blue-800 font-semibold text-sm">
+                                        <i class="fas fa-external-link-alt mr-1"></i>Visit Ecology's WRIA 1 Page
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 text-center bg-white p-6 rounded-lg border-2 border-orange-300">
+                                <h4 class="font-bold text-orange-900 mb-3">Get Event Notifications</h4>
+                                <p class="text-gray-700 mb-4 max-w-2xl mx-auto text-sm">
+                                    Want to receive updates about upcoming public meetings, hearings, and POWWRA events? Contact us to join our notification list.
+                                </p>
+                                <a href="mailto:contact@powwra.org?subject=Request Event Notifications" class="inline-block bg-orange-600 text-white font-bold py-3 px-8 rounded-lg shadow hover:bg-orange-700 transition">
+                                    <i class="fas fa-envelope mr-2"></i>Get Event Updates
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="space-y-8">
+                            <div class="legal-section">
+                                <h3 class="text-xl font-bold mb-3">What Does the Summons Mean?</h3>
+                                <p class="mb-3">If you received a summons, <strong>you are a party to this lawsuit</strong>. The summons requires you to:</p>
+                                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                                    <li>File a claim for any water rights you use or own (well, spring, stream diversion, etc.)</li>
+                                    <li>Meet strict deadlines set by the court</li>
+                                    <li>Participate in the adjudication process or risk losing your water rights by default</li>
+                                </ol>
+                                <p class="mt-4 font-bold text-blue-900">Key point: Filing a claim is mandatory to preserve your rights, but <em>how</em> you file matters. POWWRA believes property owners should file protective claims without waiving jurisdictional defenses.</p>
+                            </div>
+
+                            <div class="legal-section">
+                                <h3 class="text-xl font-bold mb-3">What Should You Do?</h3>
+                                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                                    <div>
+                                        <h4 class="font-bold text-blue-900 mb-2"><i class="fas fa-map-marked-alt mr-2"></i>1. Verify if you're affected</h4>
+                                        <p class="text-sm text-gray-700">Check if your property is in WRIA 1 (Nooksack Basin)</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-blue-900 mb-2"><i class="fas fa-file-alt mr-2"></i>2. Gather documentation</h4>
+                                        <p class="text-sm text-gray-700">Well logs, driller reports, historical use records, property deeds</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-blue-900 mb-2"><i class="fas fa-balance-scale mr-2"></i>3. Understand claim options</h4>
+                                        <p class="text-sm text-gray-700">File claims that reserve your right to challenge jurisdiction</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-blue-900 mb-2"><i class="fas fa-users mr-2"></i>4. Join organized defense</h4>
+                                        <p class="text-sm text-gray-700">Connect with POWWRA to coordinate legal strategy</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-50 p-8 rounded-xl border border-orange-200 text-center">
+                                <h3 class="text-2xl font-bold text-orange-900 mb-4">Key Resources</h3>
+                                <div class="space-y-3">
+                                    <a href="https://www.whatcomcounty.us/4282/WRIA-1-Water-Rights-Adjudication-Resourc" target="_blank" class="block text-blue-700 hover:text-blue-900 font-semibold"><i class="fas fa-external-link-alt mr-2"></i>Whatcom County WRIA 1 Resources</a>
+                                    <a href="https://ecology.wa.gov/water-shorelines/water-supply/water-rights/adjudications/nooksack" target="_blank" class="block text-blue-700 hover:text-blue-900 font-semibold"><i class="fas fa-external-link-alt mr-2"></i>Ecology's Nooksack Adjudication Page</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            initTimelineChart();
+        }
+
+        function initTimelineChart() {
+            const ctx = document.getElementById('timelineChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023', 'Jul 2024', 'Early 2025', '2026'],
+                    datasets: [{
+                        data: [15, 20, 25, 30, 40, 85, 95, 100],
+                        borderColor: '#2c5282',
+                        backgroundColor: 'rgba(44, 82, 130, 0.1)',
+                        pointRadius: 8,
+                        pointHoverRadius: 12,
+                        fill: true,
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { display: false },
+                        x: { grid: { display: false } }
+                    },
+                    onClick: (e, el) => {
+                        if (el.length > 0) {
+                            const labels = ['2019', '2020', '2021', '2022', '2023', 'Jul 2024', 'Early 2025', '2026'];
+                            const events = {
+                                '2019': { title: "Legislative Assessment", desc: "State legislature directs Ecology to assess feasibility of adjudication in WRIA 1", icon: "fa-landmark" },
+                                'Jul 2024': { title: "Ecology Files Adjudication", desc: "Department of Ecology files lawsuit in Whatcom County Superior Court, naming tribes and all property owners with water rights", icon: "fa-gavel" },
+                                'Early 2025': { title: "Summons Served", desc: "Property owners begin receiving summons in the mail requiring them to file claims or risk losing water rights", icon: "fa-file-invoice" },
+                                '2026': { title: "Claim Deadline", desc: "Final deadline for all claimants to file water right claims. Failure to file may result in permanent loss of rights.", icon: "fa-skull-crossbones" }
+                            };
+                            updateDetails(labels[el[0].index], events);
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateDetails(label, events) {
+            const box = document.getElementById('timeline-details');
+            const ev = events[label];
+            if (ev) {
+                box.innerHTML = `
+                    <div class="fade-in text-left flex gap-6 items-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-800 text-2xl"><i class="fas ${ev.icon}"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg text-gray-900">${ev.title}</h4>
+                            <p class="text-gray-600">${ev.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // LEGAL ARGUMENT PAGE - NOW WITH WORKING PDF DOWNLOADS
+        function renderDefense(container) {
+            container.innerHTML = `
+                <section class="bg-blue-900 text-white py-12">
+                    <div class="container mx-auto px-4 max-w-4xl text-center">
+                        <h2 class="text-3xl font-bold uppercase mb-4 tracking-tight">Legal Argument & Treaty Evidence</h2>
+                        <p class="text-blue-200">Why We Challenge Ecology's Tribal Trust Water Rights Theory</p>
+                    </div>
+                </section>
+
+                <section class="py-16 bg-white">
+                    <div class="container mx-auto px-4 max-w-4xl">
+                        <div class="mb-12">
+                            <p class="text-lg text-gray-700 leading-relaxed">POWWRA contends that the Department of Ecology's assertion of senior federal "tribal trust" water rights for corporate tribal governments is legally unsupported. Our position is based on:</p>
+                            <ol class="list-decimal list-inside mt-4 space-y-2 text-gray-700">
+                                <li>The actual text and history of the <strong>Point Elliott Treaty (1855)</strong></li>
+                                <li>Federal law governing <strong>Indian allotments in severalty</strong> (individual ownership)</li>
+                                <li>Supreme Court and federal court precedent on <strong>reserved water rights</strong></li>
+                                <li>Washington State's constitutional <strong>water code and jurisdiction</strong></li>
+                            </ol>
+                        </div>
+
+                        <div class="treaty-quote my-8">
+                            <h3 class="font-bold text-xl mb-3 text-gray-900">The Central Question</h3>
+                            <p class="text-gray-800">Does the Point Elliott Treaty of 1855 create senior federal water rights for corporate tribal governments on "trust lands" that override state water law and individual property owners' historical well use?</p>
+                            <p class="font-bold text-blue-900 mt-3">POWWRA's answer: No.</p>
+                        </div>
+
+                        <div class="space-y-10">
+                            <div class="legal-section">
+                                <h3 class="text-2xl font-bold mb-4 text-blue-900">1. The Point Elliott Treaty (1855) – Allotments in Severalty</h3>
+                                <div class="treaty-quote">
+                                    <p>"The President may hereafter, when in his opinion the interests of the Territory may require, and the welfare of the said Indians be promoted, <strong>cause the whole or any portion of the lands hereby reserved to be surveyed into lots, and assign the same to such individuals or families as are willing to avail themselves of the privilege, and will locate on the same as a permanent home</strong>..."</p>
+                                    <p class="text-right text-sm mt-2">— Point Elliott Treaty, Article 6</p>
+                                </div>
+                                <p class="mt-4 text-gray-700"><strong>Our interpretation:</strong> The treaty contemplated <strong>individual allotments</strong> to specific Indians and families, not collective tribal government ownership. Water rights, if reserved, attached to those individual parcels, not to a tribal government entity.</p>
+                            </div>
+
+                            <div class="legal-section">
+                                <h3 class="text-2xl font-bold mb-4 text-blue-900">2. Federal Allotment Acts – State Jurisdiction</h3>
+                                <p class="mb-3">Congress formalized allotment through:</p>
+                                <ul class="space-y-3 text-gray-700">
+                                    <li><strong>General Allotment Act (Dawes Act, 1887):</strong> Authorized allotting lands to individual Indians in severalty</li>
+                                    <li><strong>Burke Act (1906):</strong> Allottees who received fee patents came under state and territorial laws</li>
+                                    <li><strong>Public Law 280 (1953):</strong> Extended state jurisdiction over Indian lands in Washington</li>
+                                </ul>
+                            </div>
+
+                            <div class="legal-section">
+                                <h3 class="text-2xl font-bold mb-4 text-blue-900">3. Supreme Court Precedent</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="font-bold text-lg">Winters v. United States (1908)</h4>
+                                        <p class="text-gray-700 text-sm">Established reserved water rights for specific reservation purposes. <strong>Our reading:</strong> Applies to land actually reserved at the time of reservation, not all lands later claimed as "tribal trust."</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">Goudy v. Meath (1906)</h4>
+                                        <p class="text-gray-700 text-sm">Allottees' water rights determined by <strong>state law</strong> once land is allotted.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">Arizona v. California (1963)</h4>
+                                        <p class="text-gray-700 text-sm">Reserved rights tied to specific purposes and boundaries at time of creation.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-50 p-8 rounded-xl border border-orange-200">
+                                <h3 class="text-2xl font-bold mb-4 text-orange-900">Why Jurisdiction Matters</h3>
+                                <div class="treaty-quote">
+                                    <p class="font-bold">Do Ecology and tribal governments have legal standing to assert federal senior water rights on the lands in question?</p>
+                                </div>
+                                <p class="mt-4 text-gray-700">This requires proving which specific lands are validly held in federal trust status and whether the Point Elliott Treaty actually reserved water rights for tribal governments versus individual allottees.</p>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 rounded-xl">
+                                <h3 class="text-xl font-bold mb-3">Case Law & Authority</h3>
+                                <ul class="text-sm text-gray-700 space-y-1">
+                                    <li>• Point Elliott Treaty (1855), Article 6</li>
+                                    <li>• General Allotment Act (Dawes Act, 1887)</li>
+                                    <li>• Burke Act (1906)</li>
+                                    <li>• Winters v. United States, 207 U.S. 564 (1908)</li>
+                                    <li>• Goudy v. Meath, 203 U.S. 146 (1906)</li>
+                                    <li>• Arizona v. California, 373 U.S. 546 (1963)</li>
+                                    <li>• McCarran Amendment, 43 U.S.C. § 666</li>
+                                    <li>• Public Law 280 (1953)</li>
+                                    <li>• Washington State Water Code, RCW 90.03 and 90.44</li>
+                                </ul>
+                            </div>
+
+                            <!-- REQUEST DOCUMENTATION -->
+                            <div class="text-center mt-12 bg-blue-50 p-8 rounded-xl border border-blue-200">
+                                <h3 class="text-2xl font-bold mb-4 text-blue-900">Request Documentation</h3>
+                                <p class="text-gray-700 mb-6">For detailed case analysis, statutory citations, and historical documents including our full Treaty Defense Brief:</p>
+                                <a href="mailto:contact@powwra.org?subject=Request for Treaty Defense Documentation" class="inline-block bg-orange-600 text-white font-bold py-4 px-10 rounded-lg shadow-lg hover:bg-orange-700 transition">
+                                    📧 REQUEST DOCUMENTS VIA EMAIL
+                                </a>
+                                <p class="text-sm text-gray-600 mt-4">We'll send you our complete legal briefs and supporting materials.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        // JOIN & DONATE PAGE
+        function renderAction(container) {
+            // Use settings from JSON or fallback
+            const settings = content.settings || { stripeLink: STRIPE_LINK, venmoUsername: VENMO_USERNAME };
+            const stripeLink = settings.stripeLink || STRIPE_LINK;
+            const venmoUsername = settings.venmoUsername || VENMO_USERNAME;
+
+            // Check if Stripe is set up
+            const stripeReady = stripeLink && stripeLink.includes('stripe.com');
+
+            container.innerHTML = `
+                <section class="bg-gray-50 py-16">
+                    <div class="container mx-auto px-4 max-w-3xl">
+                        <div class="text-center mb-12">
+                            <h2 class="text-3xl font-bold mb-4">Join the Defense Fund</h2>
+                            <p class="text-gray-600 text-lg">Organize, fund legal action, defend our water rights</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 mb-12">
+                            <h3 class="text-2xl font-bold mb-6 text-center">Why We Need Your Support</h3>
+                            <p class="text-gray-700 leading-relaxed mb-6">Challenging Ecology's water rights theory requires experienced legal counsel, expert witnesses, documentary research, and coordinated advocacy. We cannot win this fight alone.</p>
+                            <p class="text-gray-700 font-bold">The adjudication will proceed with or without organized landowner defense. If property owners do not coordinate and fund a strong legal challenge, your well will be subordinated by default.</p>
+                        </div>
+
+                        <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100 mb-12">
+                            <h3 class="text-2xl font-bold mb-6 text-center text-blue-900">What Your Contribution Funds</h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-white p-6 rounded-xl shadow-sm">
+                                    <h4 class="font-bold text-lg mb-2 text-blue-900"><i class="fas fa-balance-scale mr-2"></i>Legal Representation</h4>
+                                    <p class="text-sm text-gray-700">Attorneys experienced in water rights and federal Indian law</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-xl shadow-sm">
+                                    <h4 class="font-bold text-lg mb-2 text-blue-900"><i class="fas fa-user-tie mr-2"></i>Expert Witnesses</h4>
+                                    <p class="text-sm text-gray-700">Hydrologists, historians, and legal experts</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-xl shadow-sm">
+                                    <h4 class="font-bold text-lg mb-2 text-blue-900"><i class="fas fa-file-alt mr-2"></i>Documentary Research</h4>
+                                    <p class="text-sm text-gray-700">Federal allotment records, patents, and survey maps</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-xl shadow-sm">
+                                    <h4 class="font-bold text-lg mb-2 text-blue-900"><i class="fas fa-users mr-2"></i>Outreach & Education</h4>
+                                    <p class="text-sm text-gray-700">Meetings, materials, and coordination</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DONATION SECTION -->
+                        <div class="bg-blue-900 text-white p-10 rounded-3xl text-center shadow-2xl mb-12">
+                            <h3 class="text-2xl font-bold mb-6 font-serif">Contribute to the Legal Defense</h3>
+                            <p class="mb-8 text-blue-100">Support POWWRA's legal challenge. Every donation helps fund attorney fees, expert witnesses, and documentary research.</p>
+
+                            <div class="grid md:grid-cols-${stripeReady ? '2' : '1'} gap-6 mb-6">
+                                ${stripeReady ? `
+                                <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
+                                    <h4 class="font-bold mb-3 text-lg">Donate with Card</h4>
+                                    <p class="text-sm text-blue-200 mb-4">Best for donations $25+<br>Automatic receipt provided</p>
+                                    <a href="${stripeLink}" target="_blank" class="block w-full bg-orange-600 py-4 rounded-xl font-black text-xl hover:bg-orange-500 transition shadow-lg">DONATE VIA STRIPE</a>
+                                    <p class="text-xs text-blue-300 mt-3">Accepts all major credit/debit cards</p>
+                                </div>
+                                ` : ''}
+
+                                <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
+                                    <h4 class="font-bold mb-3 text-lg">Quick Venmo</h4>
+                                    <p class="text-sm text-blue-200 mb-4">For quick donations<br>Free, instant transfer</p>
+                                    <a href="https://venmo.com/${venmoUsername}" target="_blank" class="block w-full bg-blue-500 py-4 rounded-xl font-black text-xl hover:bg-blue-400 transition shadow-lg">DONATE VIA VENMO</a>
+                                    <p class="text-xs text-blue-300 mt-3">@${venmoUsername}</p>
+                                </div>
+                            </div>
+
+                            ${stripeReady ? '' : '<p class="text-sm text-blue-300 mb-4">Credit card donations via Stripe coming soon!</p>'}
+                            <p class="text-xs text-blue-300">POWWRA uses donated funds transparently for legal fees, expert witnesses, research, and outreach.</p>
+                        </div>
+
+                        <!-- CONTACT FORM -->
+                        <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+                            <h3 class="text-2xl font-bold mb-6 text-center">Join POWWRA</h3>
+                            <p class="text-center text-gray-600 mb-8">Apply to join and keep me updated</p>
+
+                            <form class="space-y-4" onsubmit="handleFormSubmit(event)">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-bold mb-2">Full Name *</label>
+                                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold mb-2">Email *</label>
+                                        <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold mb-3">I want to: *</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center"><input type="checkbox" class="mr-3"> Apply to join POWWRA as a member</label>
+                                        <label class="flex items-center"><input type="checkbox" class="mr-3"> Keep me informed with updates</label>
+                                    </div>
+                                </div>
+
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-bold mb-2">Phone (optional)</label>
+                                        <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold mb-2">County</label>
+                                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                            <option>Whatcom</option>
+                                            <option>Skagit</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold mb-2">Property Address / Parcel Number</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold mb-3">Type of Water Use</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center"><input type="checkbox" class="mr-3"> Domestic well</label>
+                                        <label class="flex items-center"><input type="checkbox" class="mr-3"> Farm irrigation</label>
+                                        <label class="flex items-center"><input type="checkbox" class="mr-3"> Livestock</label>
+                                        <label class="flex items-center"><input type="checkbox" class="mr-3"> Small business</label>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold mb-2">Comments or Questions</label>
+                                    <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full bg-blue-900 text-white font-bold py-4 rounded-lg hover:bg-blue-800 transition shadow-lg">SUBMIT</button>
+                            </form>
+
+                            <p class="text-xs text-gray-500 text-center mt-6">We respect your privacy. Your information will only be used for POWWRA coordination and updates.</p>
+                        </div>
+
+                        <div class="mt-12 bg-gray-50 p-8 rounded-xl border border-gray-200">
+                            <h3 class="text-xl font-bold mb-4">Transparency & Accountability</h3>
+                            <p class="text-gray-700 text-sm">POWWRA is committed to using donated funds responsibly and transparently. Contributions go directly to legal fees, expert witnesses, research, and outreach. We provide regular updates on legal strategy and case developments.</p>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert("Thank you for your interest! This form will be connected to email when the site goes live. For now, please email contact@powwra.org directly.");
+            return false;
+        }
+
+        window.addEventListener('DOMContentLoaded', render);
+    </script>
+</body>
+</html>

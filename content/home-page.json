@@ -1,0 +1,72 @@
+{
+  "hero": {
+    "headline": "Defending Our Wells and Property Rights in WRIA 1",
+    "subheadline": "Property owners in Whatcom County's Nooksack Basin face an unprecedented threat to existing wells, farms, and land values. We believe Ecology's \"tribal trust\" water rights theory is legally and historically false.",
+    "primaryButtonText": "JOIN THE DEFENSE",
+    "secondaryButtonText": "WHAT'S HAPPENING?"
+  },
+  "coreProblem": {
+    "title": "The Core Problem",
+    "ecologyClaims": [
+      "Tribal governments have senior federal water rights on \"trust lands\" that trump all other uses",
+      "These rights come from the Point Elliott Treaty of 1855",
+      "Property owners must prove their wells don't impair these tribal claims"
+    ],
+    "ourPosition": [
+      "Treaty-reserved water rights were created for <strong>individual Indian allottees</strong>, not corporate tribal governments",
+      "These individual allotments were later placed under <strong>state jurisdiction</strong> by federal law",
+      "Ecology's \"tribal trust seniority\" theory misreads the treaty, federal law, and Supreme Court precedent",
+      "We must challenge jurisdiction <strong>first</strong> before being forced into \"collaboration\""
+    ]
+  },
+  "impact": {
+    "currentRight": "5,000",
+    "potentialFuture": "350",
+    "unit": "Gallons Per Day",
+    "description": "If Ecology's theory stands, your existing domestic, farm, or business well could be deemed \"junior\" to tribal claims—forcing you to meter, curtail, or abandon wells you've used for decades."
+  },
+  "stakes": [
+    {
+      "icon": "fa-exclamation-triangle",
+      "title": "Well Restrictions",
+      "description": "Your well may be forced to meter, curtail pumping, or shut down during dry periods"
+    },
+    {
+      "icon": "fa-home",
+      "title": "Property Value Loss",
+      "description": "Reliable water access becomes uncertain, reducing your property value"
+    },
+    {
+      "icon": "fa-gavel",
+      "title": "Settlement Pressure",
+      "description": "You may be pressured to accept limitations without testing legal claims in court"
+    },
+    {
+      "icon": "fa-tractor",
+      "title": "Farm Operations",
+      "description": "Agricultural operations could be curtailed, threatening your livelihood"
+    }
+  ],
+  "strategy": [
+    {
+      "number": "01",
+      "title": "Challenge Jurisdiction",
+      "description": "File motions questioning whether Ecology and tribal governments have legal standing to assert these federal trust-based claims"
+    },
+    {
+      "number": "02",
+      "title": "Demand Proof",
+      "description": "Require Ecology and tribes to prove trust boundaries, treaty basis, and actual water use—not just assert claims"
+    },
+    {
+      "number": "03",
+      "title": "Organize Landowners",
+      "description": "Build a unified coalition to fund experienced water rights attorneys and expert witnesses"
+    },
+    {
+      "number": "04",
+      "title": "Preserve Rights",
+      "description": "Help property owners file protective claims without waiving jurisdictional defenses"
+    }
+  ]
+}

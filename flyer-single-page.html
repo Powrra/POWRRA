@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>POWWRA Water Rights Flyer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.35in;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9pt;
+            line-height: 1.2;
+            width: 7.8in;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .header {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 22pt;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .header .subtitle {
+            font-size: 11pt;
+            margin-bottom: 6px;
+        }
+
+        .header .org {
+            font-size: 9pt;
+            font-weight: bold;
+        }
+
+        .section {
+            border: 3px solid black;
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+
+        .section h2 {
+            font-size: 13pt;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            border-bottom: 2px solid black;
+            padding-bottom: 3px;
+        }
+
+        .meeting {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid black;
+        }
+
+        .meeting:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .meeting .date {
+            font-size: 11pt;
+            font-weight: bold;
+        }
+
+        .meeting .venue {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        .meeting .address {
+            font-size: 8pt;
+            margin-top: 1px;
+        }
+
+        .deadline {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .deadline h2 {
+            font-size: 18pt;
+            border: none;
+            margin-bottom: 3px;
+        }
+
+        .deadline p {
+            font-size: 9pt;
+        }
+
+        .warning ul {
+            list-style: none;
+            margin: 6px 0 0 0;
+        }
+
+        .warning li {
+            margin-bottom: 4px;
+            padding-left: 15px;
+            position: relative;
+            font-size: 8pt;
+        }
+
+        .warning li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+
+        .blue-section ul {
+            list-style: none;
+            margin: 6px 0 0 0;
+        }
+
+        .blue-section li {
+            margin-bottom: 3px;
+            padding-left: 12px;
+            position: relative;
+            font-size: 8pt;
+        }
+
+        .blue-section li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .grid-4 {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .grid-row {
+            display: table-row;
+        }
+
+        .grid-item {
+            display: table-cell;
+            width: 25%;
+            padding: 8px;
+            border: 2px solid black;
+            vertical-align: top;
+        }
+
+        .grid-item h3 {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .grid-item p {
+            font-size: 7pt;
+            line-height: 1.3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+        th, td {
+            padding: 4px;
+            border: 1px solid black;
+            text-align: left;
+            font-size: 7pt;
+        }
+
+        th {
+            background: black;
+            color: white;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f0f0f0;
+        }
+
+        tbody tr:last-child {
+            font-weight: bold;
+        }
+
+        .footer {
+            background: black;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .footer h2 {
+            font-size: 16pt;
+            margin-bottom: 6px;
+        }
+
+        .qr-section {
+            margin: 8px 0;
+        }
+
+        .qr-section img {
+            width: 70px;
+            height: 70px;
+            background: white;
+            padding: 4px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .website {
+            font-size: 18pt;
+            font-weight: bold;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .contact {
+            font-size: 7pt;
+            margin-top: 8px;
+        }
+
+        .disclaimer {
+            font-size: 6pt;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>WRIA 1 WATER RIGHTS ADJUDICATION</h1>
+    <div class="subtitle">What Property Owners Need to Know</div>
+    <div class="org">Property Owners Water Well Rights Alliance (POWWRA)</div>
+</div>
+
+<div class="section">
+    <h2>📅 Upcoming Community Meetings</h2>
+    <div class="meeting">
+        <div class="date">Tuesday, January 20 • 6:30 PM</div>
+        <div class="venue">Victor Community Club</div>
+        <div class="address">887 E. Smith Rd., Bellingham, WA</div>
+    </div>
+    <div class="meeting">
+        <div class="date">Thursday, January 22 • 6:30 PM</div>
+        <div class="venue">Haynie Grange</div>
+        <div class="address">3344 Haynie Rd., Blaine, WA</div>
+    </div>
+</div>
+
+<div class="section deadline">
+    <h2>⚠ MAY 1, 2026 DEADLINE</h2>
+    <p>State-imposed deadline looming. Join POWWRA now to protect your rights through coordinated legal action.</p>
+</div>
+
+<div class="section warning">
+    <h2>YOUR WELL IS AT RISK</h2>
+    <p style="font-size: 8pt; margin-bottom: 6px;"><strong>If you own property with a well in Whatcom County's Nooksack Basin (WRIA 1), your well could be:</strong></p>
+    <ul>
+        <li>Rank your existing well as "junior" to tribal government claims</li>
+        <li>Require metering, reporting, and possible shut-downs during dry periods</li>
+        <li>Reduce property value due to water uncertainty</li>
+        <li>Force you into settlement without testing legal claims in court</li>
+    </ul>
+</div>
+
+<div class="section blue-section">
+    <h2>WHY WE CHALLENGE THIS</h2>
+    <ul>
+        <li><strong>Individual Rights:</strong> 1855 Treaty allotted lands to individuals, not tribal governments</li>
+        <li><strong>State Jurisdiction:</strong> Federal laws (Burke Act, PL 280) placed lands under state jurisdiction</li>
+        <li><strong>No Proof:</strong> Ecology hasn't proven which lands are validly in federal trust</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>WHAT YOU MUST DO NOW</h2>
+    <div class="grid-4">
+        <div class="grid-row">
+            <div class="grid-item">
+                <h3>1. DON'T File Alone</h3>
+                <p>Filing with the state without legal counsel could make you lose your rights. Join POWWRA's coordinated legal challenge instead.</p>
+            </div>
+            <div class="grid-item">
+                <h3>2. Join POWWRA Now</h3>
+                <p>Connect with property owners fighting back through coordinated lawsuit. Strength in numbers.</p>
+            </div>
+            <div class="grid-item">
+                <h3>3. Attend Meetings</h3>
+                <p>Learn your options before May 1, 2026 deadline. Get connected with water rights attorneys.</p>
+            </div>
+            <div class="grid-item">
+                <h3>4. Spread the Word</h3>
+                <p>Tell neighbors. Print this flyer. Many property owners don't know this is happening.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>TIMELINE AT A GLANCE</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 80px;">Date</th>
+                <th>Event</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1855</strong></td>
+                <td>Point Elliott Treaty - Individual allotments authorized</td>
+            </tr>
+            <tr>
+                <td><strong>1887-1906</strong></td>
+                <td>Federal Allotment Acts - State jurisdiction</td>
+            </tr>
+            <tr>
+                <td><strong>July 2024</strong></td>
+                <td>State begins water rights adjudication process</td>
+            </tr>
+            <tr>
+                <td><strong>2025</strong></td>
+                <td>Property owners receiving notices</td>
+            </tr>
+            <tr>
+                <td><strong>May 1, 2026</strong></td>
+                <td>⚠ DEADLINE - Join POWWRA to protect your rights</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+    <h2>JOIN THE FIGHT</h2>
+    <div class="qr-section">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://powwra.org" alt="QR Code">
+        <span class="website">powwra.org</span>
+    </div>
+    <div class="contact">
+        <strong>Email:</strong> contact@powwra.org<br>
+        <em>POWWRA is a registered 501(c)(4) nonprofit. Donations are not tax deductible.</em><br>
+        <strong>Defending Our Wells • Our Farms • Our Property Rights</strong>
+    </div>
+    <div class="disclaimer">
+        DISCLAIMER: This is not legal advice. Consult with a qualified water rights attorney about your specific situation.
+    </div>
+</div>
+
+</body>
+</html>

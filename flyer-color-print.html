@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POWWRA - WRIA 1 Water Rights Flyer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            font-size: 11pt;
+            line-height: 1.4;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .header {
+            background: #b91c1c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32pt;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 16pt;
+            margin-bottom: 12px;
+        }
+
+        .header .org {
+            background: white;
+            color: #b91c1c;
+            display: inline-block;
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .meetings {
+            background: linear-gradient(to right, #2563eb, #1e40af);
+            color: white;
+            padding: 16px;
+            margin-top: 0;
+        }
+
+        .meetings h2 {
+            font-size: 16pt;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .meetings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 6in;
+            margin: 0 auto;
+        }
+
+        .meeting-card {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .meeting-card .label {
+            color: #fef08a;
+            font-weight: bold;
+            font-size: 8pt;
+            margin-bottom: 4px;
+        }
+
+        .meeting-card .date {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .meeting-card .time {
+            font-size: 14pt;
+            margin-bottom: 8px;
+        }
+
+        .meeting-card .venue {
+            font-weight: bold;
+            font-size: 12pt;
+            margin-bottom: 2px;
+        }
+
+        .meeting-card .address {
+            font-size: 9pt;
+        }
+
+        .deadline {
+            background: linear-gradient(to right, #dc2626, #ea580c);
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .deadline .badge {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .deadline h2 {
+            font-size: 28pt;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+
+        .deadline .text {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .deadline .warning {
+            font-size: 11pt;
+        }
+
+        .section {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .section h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1e40af;
+            border-bottom: 3px solid #1e40af;
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+
+        .warning-section {
+            background: #fef2f2;
+            border-left: 8px solid #dc2626;
+            padding: 16px;
+        }
+
+        .warning-section h2 {
+            color: #b91c1c;
+            font-size: 18pt;
+            margin-bottom: 10px;
+            border-bottom: none;
+        }
+
+        .warning-section .intro {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .warning-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .warning-item {
+            display: flex;
+            gap: 8px;
+        }
+
+        .warning-item .icon {
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 14pt;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 10px;
+            font-size: 10pt;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .blue-section {
+            background: #eff6ff;
+            padding: 16px;
+        }
+
+        .blue-section h2 {
+            color: #1e3a8a;
+            border-bottom-color: #1e3a8a;
+        }
+
+        .blue-section ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .blue-section li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .blue-section li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 14pt;
+        }
+
+        .authorities-box {
+            background: white;
+            border: 2px solid #2563eb;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .authorities-box .title {
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 9pt;
+            margin-bottom: 4px;
+        }
+
+        .authorities-box .text {
+            font-size: 8pt;
+            line-height: 1.3;
+        }
+
+        .action-section {
+            background: #fff7ed;
+            border-top: 4px solid #ea580c;
+            padding: 16px;
+        }
+
+        .action-section h2 {
+            color: #9a3412;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .action-box {
+            border: 2px solid #fed7aa;
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .action-box h3 {
+            color: #c2410c;
+            font-weight: bold;
+            font-size: 12pt;
+            margin-bottom: 6px;
+        }
+
+        .action-box p {
+            font-size: 9pt;
+            margin-bottom: 4px;
+        }
+
+        .action-box .note {
+            font-size: 8pt;
+            font-style: italic;
+            color: #6b7280;
+        }
+
+        .timeline-section {
+            background: #f9fafb;
+            padding: 16px;
+        }
+
+        .timeline-section h2 {
+            color: #111827;
+            font-size: 14pt;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 3px solid #6b7280;
+        }
+
+        thead {
+            background: #1f2937;
+            color: white;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #6b7280;
+            font-size: 9pt;
+        }
+
+        th {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f3f4f6;
+        }
+
+        tbody tr:last-child {
+            background: #fee2e2;
+        }
+
+        tbody tr:last-child td {
+            font-weight: bold;
+            color: #b91c1c;
+            font-size: 10pt;
+        }
+
+        .facts-section {
+            background: #dbeafe;
+            border-top: 4px solid #2563eb;
+            padding: 16px;
+        }
+
+        .facts-section h2 {
+            color: #1e3a8a;
+            font-size: 14pt;
+            margin-bottom: 10px;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .fact-box {
+            background: white;
+            border: 2px solid #93c5fd;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .fact-box .title {
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 4px;
+        }
+
+        .fact-box .text {
+            font-size: 8pt;
+        }
+
+        .footer {
+            background: #1e3a8a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer h2 {
+            font-size: 20pt;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .footer .intro {
+            font-size: 9pt;
+            opacity: 0.8;
+            margin-bottom: 12px;
+        }
+
+        .qr-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 16px;
+        }
+
+        .qr-code {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .qr-code img {
+            width: 100px;
+            height: 100px;
+            display: block;
+        }
+
+        .website-box .label {
+            font-size: 9pt;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .website-box .url {
+            font-size: 18pt;
+            font-weight: bold;
+        }
+
+        .contact-info {
+            font-size: 9pt;
+            margin-bottom: 12px;
+        }
+
+        .contact-info p {
+            margin-bottom: 4px;
+        }
+
+        .disclaimer {
+            font-size: 7pt;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        @media print {
+            body {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>WRIA 1 Water Rights Adjudication</h1>
+        <div class="subtitle">What Property Owners Need to Know</div>
+        <div class="org">Property Owners Water Well Rights Alliance (POWWRA)</div>
+    </div>
+
+    <div class="meetings">
+        <h2>📅 UPCOMING COMMUNITY MEETINGS</h2>
+        <div class="meetings-grid">
+            <div class="meeting-card">
+                <div class="label">MEETING 1</div>
+                <div class="date">Tuesday, January 21</div>
+                <div class="time">6:30 PM</div>
+                <div class="venue">Victor Community Club</div>
+                <div class="address">887 E. Smith Rd., Bellingham, WA</div>
+            </div>
+            <div class="meeting-card">
+                <div class="label">MEETING 2</div>
+                <div class="date">Thursday, January 23</div>
+                <div class="time">6:30 PM</div>
+                <div class="venue">Haynie Grange</div>
+                <div class="address">3344 Haynie Rd., Blaine, WA</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="deadline">
+        <div class="badge">⚠️ URGENT DEADLINE ⚠️</div>
+        <h2>MAY 1, 2026</h2>
+        <div class="text">You MUST file your water rights claim by this deadline</div>
+        <div class="warning">Failure to file may result in permanent loss of your water rights</div>
+    </div>
+
+    <div class="warning-section">
+        <h2>⚠️ YOUR WELL IS AT RISK</h2>
+        <p class="intro">If you own property with a well in Whatcom County's Nooksack Basin (WRIA 1), a lawsuit has been filed that could:</p>
+        <div class="warning-grid">
+            <div class="warning-item">
+                <span class="icon">✗</span>
+                <span>Rank your existing well as <strong>"junior"</strong> to tribal government claims</span>
+            </div>
+            <div class="warning-item">
+                <span class="icon">✗</span>
+                <span>Require <strong>metering, reporting</strong>, and possible shut-downs during dry periods</span>
+            </div>
+            <div class="warning-item">
+                <span class="icon">✗</span>
+                <span><strong>Reduce property value</strong> due to water uncertainty</span>
+            </div>
+            <div class="warning-item">
+                <span class="icon">✗</span>
+                <span>Force you into settlement <strong>without testing legal claims</strong> in court</span>
+            </div>
+        </div>
+        <div class="note-box">
+            <strong>The Core Claim:</strong> Ecology and tribal governments assert senior federal water rights dating back to the 1855 Point Elliott Treaty that trump your historical well use.
+        </div>
+    </div>
+
+    <div class="blue-section">
+        <h2>WHY WE CHALLENGE THIS</h2>
+        <p style="font-weight: 600; font-style: italic; margin-bottom: 8px;">POWWRA's Position: The state's claim is legally and historically false.</p>
+        <ul>
+            <li><strong>Individual Rights:</strong> 1855 Treaty allotted lands to individual Indians, not corporate tribal governments.</li>
+            <li><strong>State Jurisdiction:</strong> Federal laws (Burke Act, PL 280) placed allotted lands under state/county jurisdiction.</li>
+            <li><strong>Supreme Court Precedent:</strong> Cases (Goudy v. Meath, Winters v. US) don't support blanket tribal trust claims.</li>
+            <li><strong>No Proof:</strong> Ecology has not proven which specific lands are validly held in federal trust status today.</li>
+        </ul>
+        <div class="authorities-box">
+            <div class="title">Legal Authorities We Rely On:</div>
+            <div class="text">Point Elliott Treaty (1855) • Dawes Act (1887) • Burke Act (1906) • Winters v. US (1908) • Goudy v. Meath (1906) • Arizona v. California (1963) • Public Law 280 (1953) • McCarran Amendment • WA State Water Code (RCW 90.03 & 90.44)</div>
+        </div>
+    </div>
+
+    <div class="action-section">
+        <h2>WHAT YOU MUST DO NOW</h2>
+        <div class="action-grid">
+            <div class="action-box">
+                <h3>1. File Your Claim</h3>
+                <p>If you receive a summons, you MUST file a water rights claim by <strong>May 1, 2026 deadline</strong> or risk losing your rights forever.</p>
+                <p class="note">Consult a qualified water rights attorney immediately.</p>
+            </div>
+            <div class="action-box">
+                <h3>2. Challenge Jurisdiction</h3>
+                <p>File claims that reserve your right to challenge the legal basis of tribal trust claims and Ecology's jurisdiction.</p>
+                <p class="note">Don't accept the state's narrative without a fight.</p>
+            </div>
+            <div class="action-box">
+                <h3>3. Join the Fight</h3>
+                <p>Connect with POWWRA. Contribute to the legal defense fund to hire experts and coordinate action.</p>
+                <p class="note">Together we have strength. Divided we fall.</p>
+            </div>
+            <div class="action-box">
+                <h3>4. Spread the Word</h3>
+                <p>Print this handout, talk to your neighbors, and attend community meetings.</p>
+                <p class="note">Many property owners don't know this is happening.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-section">
+        <h2>TIMELINE AT A GLANCE</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Event</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1855</strong></td>
+                    <td>Point Elliott Treaty signed - Individual allotments authorized</td>
+                </tr>
+                <tr>
+                    <td><strong>1887-1906</strong></td>
+                    <td>Federal Allotment Acts place lands under state jurisdiction</td>
+                </tr>
+                <tr>
+                    <td><strong>2019</strong></td>
+                    <td>Legislature directs Ecology to assess adjudication feasibility</td>
+                </tr>
+                <tr>
+                    <td><strong>July 2024</strong></td>
+                    <td>Ecology files adjudication lawsuit in Whatcom County Superior Court</td>
+                </tr>
+                <tr>
+                    <td><strong>2025</strong></td>
+                    <td>Summons being served to property owners</td>
+                </tr>
+                <tr>
+                    <td><strong>May 1, 2026</strong></td>
+                    <td>⚠️ CLAIM DEADLINE - File or lose your rights forever</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="facts-section">
+        <h2>IMPORTANT FACTS</h2>
+        <div class="facts-grid">
+            <div class="fact-box">
+                <div class="title">Who is affected?</div>
+                <div class="text">Thousands of property owners with domestic wells, farm irrigation, livestock water, and small businesses in WRIA 1</div>
+            </div>
+            <div class="fact-box">
+                <div class="title">What's at stake?</div>
+                <div class="text">Your ability to use your well without state permission, metering requirements, or seasonal shut-downs</div>
+            </div>
+            <div class="fact-box">
+                <div class="title">Cost to defend?</div>
+                <div class="text">Legal fees can be $5,000-$25,000+ per property owner. Collective defense reduces costs.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h2>JOIN THE FIGHT</h2>
+        <p class="intro">Visit our website for updates, legal resources, and donation information:</p>
+
+        <div class="qr-section">
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://powwra.org" alt="QR Code to powwra.org">
+            </div>
+            <div class="website-box">
+                <div class="label">Scan to visit:</div>
+                <div class="url">powwra.org</div>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <p><strong>Email:</strong> contact@powwra.org</p>
+            <p><em>POWWRA is a registered 501(c)(4) nonprofit. Donations are not tax deductible.</em></p>
+            <p><strong>Defending Our Wells • Our Farms • Our Property Rights</strong></p>
+        </div>
+
+        <div class="disclaimer">
+            DISCLAIMER: This is not legal advice. Consult with a qualified water rights attorney about your specific situation. This flyer provides general information about the WRIA 1 adjudication and POWWRA's legal position.
+        </div>
+    </div>
+
+</body>
+</html>

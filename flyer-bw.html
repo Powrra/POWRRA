@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POWWRA - WRIA 1 Water Rights Flyer (B&W)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@500;700&display=swap');
+
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        h1, h2, .impact-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .warning-border {
+            border-left: 8px solid #000;
+        }
+
+        @media print {
+            body {
+                background-color: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+            .max-w-4xl {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .p-4, .md\\:p-8 {
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-2xl border-4 border-black overflow-hidden">
+
+        <!-- Header Section -->
+        <header class="bg-gray-900 text-white p-6 text-center border-b-8 border-black">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-2">WRIA 1 Water Rights Adjudication</h1>
+            <p class="text-xl md:text-2xl font-medium opacity-90">What Property Owners Need to Know</p>
+            <div class="mt-4 bg-white text-black inline-block px-4 py-1 font-bold rounded border-2 border-black">
+                Property Owners Water Well Rights Alliance (POWWRA)
+            </div>
+        </header>
+
+        <!-- UPCOMING MEETINGS -->
+        <section class="p-6 border-b-4 border-black bg-white">
+            <h2 class="text-2xl font-bold mb-4 text-center uppercase border-b-4 border-black pb-2">📅 Upcoming Community Meetings</h2>
+            <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <div class="border-4 border-black p-5 rounded-lg">
+                    <div class="font-bold text-sm mb-2 uppercase">MEETING 1</div>
+                    <div class="text-2xl font-bold mb-1">Tuesday, January 21</div>
+                    <div class="text-xl mb-3">6:30 PM</div>
+                    <div class="font-bold text-lg mb-1">Victor Community Club</div>
+                    <div class="text-sm">887 E. Smith Rd., Bellingham, WA</div>
+                </div>
+                <div class="border-4 border-black p-5 rounded-lg">
+                    <div class="font-bold text-sm mb-2 uppercase">MEETING 2</div>
+                    <div class="text-2xl font-bold mb-1">Thursday, January 23</div>
+                    <div class="text-xl mb-3">6:30 PM</div>
+                    <div class="font-bold text-lg mb-1">Haynie Grange</div>
+                    <div class="text-sm">3344 Haynie Rd., Blaine, WA</div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-sm font-semibold">Learn about the adjudication, understand your rights, and connect with neighbors defending their water.</p>
+            </div>
+        </section>
+
+        <!-- Critical Warning -->
+        <section class="p-6 bg-white warning-border border-4 border-black">
+            <h2 class="text-3xl mb-4 font-bold">⚠️ YOUR WELL IS AT RISK</h2>
+            <p class="mb-4 text-gray-800 font-semibold">If you own property with a well in Whatcom County's Nooksack Basin (WRIA 1), a lawsuit has been filed that could:</p>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex items-start">
+                    <span class="font-bold mr-2 text-xl">✗</span>
+                    <p class="text-sm">Rank your existing well as <strong>"junior"</strong> to tribal government claims</p>
+                </div>
+                <div class="flex items-start">
+                    <span class="font-bold mr-2 text-xl">✗</span>
+                    <p class="text-sm">Require <strong>metering, reporting</strong>, and possible shut-downs during dry periods</p>
+                </div>
+                <div class="flex items-start">
+                    <span class="font-bold mr-2 text-xl">✗</span>
+                    <p class="text-sm"><strong>Reduce property value</strong> due to water uncertainty</p>
+                </div>
+                <div class="flex items-start">
+                    <span class="font-bold mr-2 text-xl">✗</span>
+                    <p class="text-sm">Force you into settlement <strong>without testing legal claims</strong> in court</p>
+                </div>
+            </div>
+            <div class="mt-4 border-l-4 border-black p-4 text-sm italic bg-gray-100">
+                <strong>The Core Claim:</strong> Ecology and tribal governments assert senior federal water rights dating back to the 1855 Point Elliott Treaty that trump your historical well use.
+            </div>
+        </section>
+
+        <!-- Why We Challenge This -->
+        <section class="p-6 bg-white border-t-4 border-black">
+            <h2 class="text-2xl font-bold mb-4 border-b-4 border-black inline-block pb-1">WHY WE CHALLENGE THIS</h2>
+            <p class="text-sm font-bold mb-3 italic">POWWRA's Position: The state's claim is legally and historically false.</p>
+            <ul class="space-y-2 text-sm">
+                <li class="flex items-start">
+                    <span class="font-bold mr-2">•</span>
+                    <span><strong>Individual Rights:</strong> 1855 Treaty allotted lands to individual Indians, not corporate tribal governments.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="font-bold mr-2">•</span>
+                    <span><strong>State Jurisdiction:</strong> Federal laws (Burke Act, PL 280) placed allotted lands under state/county jurisdiction.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="font-bold mr-2">•</span>
+                    <span><strong>Supreme Court Precedent:</strong> Cases (Goudy v. Meath, Winters v. US) don't support blanket tribal trust claims.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="font-bold mr-2">•</span>
+                    <span><strong>No Proof:</strong> Ecology has not proven which specific lands are validly held in federal trust status today.</span>
+                </li>
+            </ul>
+            <div class="mt-4 bg-gray-100 p-4 border-2 border-black">
+                <p class="text-xs font-bold mb-1">Legal Authorities We Rely On:</p>
+                <p class="text-xs">Point Elliott Treaty (1855) • Dawes Act (1887) • Burke Act (1906) • Winters v. US (1908) • Goudy v. Meath (1906) • Arizona v. California (1963) • Public Law 280 (1953) • McCarran Amendment • WA State Water Code (RCW 90.03 & 90.44)</p>
+            </div>
+        </section>
+
+        <!-- What You Must Do -->
+        <section class="p-6 bg-white border-t-4 border-black">
+            <h2 class="text-2xl font-bold mb-4">WHAT YOU MUST DO NOW</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="border-4 border-black p-4 bg-white">
+                    <h3 class="font-bold mb-2 text-lg">1. File Your Claim</h3>
+                    <p class="text-sm mb-2">If you receive a summons, you MUST file a water rights claim by <strong>May 1, 2026 deadline</strong> or risk losing your rights forever.</p>
+                    <p class="text-xs italic">Consult a qualified water rights attorney immediately.</p>
+                </div>
+                <div class="border-4 border-black p-4 bg-white">
+                    <h3 class="font-bold mb-2 text-lg">2. Challenge Jurisdiction</h3>
+                    <p class="text-sm mb-2">File claims that reserve your right to challenge the legal basis of tribal trust claims and Ecology's jurisdiction.</p>
+                    <p class="text-xs italic">Don't accept the state's narrative without a fight.</p>
+                </div>
+                <div class="border-4 border-black p-4 bg-white">
+                    <h3 class="font-bold mb-2 text-lg">3. Join the Fight</h3>
+                    <p class="text-sm mb-2">Connect with POWWRA. Contribute to the legal defense fund to hire experts and coordinate action.</p>
+                    <p class="text-xs italic">Together we have strength. Divided we fall.</p>
+                </div>
+                <div class="border-4 border-black p-4 bg-white">
+                    <h3 class="font-bold mb-2 text-lg">4. Spread the Word</h3>
+                    <p class="text-sm mb-2">Print this handout, talk to your neighbors, and attend community meetings.</p>
+                    <p class="text-xs italic">Many property owners don't know this is happening.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Table -->
+        <section class="p-6 bg-white border-t-4 border-black">
+            <h2 class="text-xl font-bold mb-4">TIMELINE AT A GLANCE</h2>
+            <table class="w-full border-collapse border-4 border-black text-sm">
+                <thead>
+                    <tr class="bg-black text-white">
+                        <th class="p-2 border-2 border-black text-left">Date</th>
+                        <th class="p-2 border-2 border-black text-left">Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="p-2 border-2 border-black font-bold">1855</td>
+                        <td class="p-2 border-2 border-black">Point Elliott Treaty signed - Individual allotments authorized</td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                        <td class="p-2 border-2 border-black font-bold">1887-1906</td>
+                        <td class="p-2 border-2 border-black">Federal Allotment Acts place lands under state jurisdiction</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-2 border-black font-bold">2019</td>
+                        <td class="p-2 border-2 border-black">Legislature directs Ecology to assess adjudication feasibility</td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                        <td class="p-2 border-2 border-black font-bold">July 2024</td>
+                        <td class="p-2 border-2 border-black font-semibold">Ecology files adjudication lawsuit in Whatcom County Superior Court</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-2 border-black font-bold">2025</td>
+                        <td class="p-2 border-2 border-black">Summons being served to property owners</td>
+                    </tr>
+                    <tr class="bg-gray-200">
+                        <td class="p-2 border-2 border-black font-bold text-lg">May 1, 2026</td>
+                        <td class="p-2 border-2 border-black font-bold text-lg">⚠️ CLAIM DEADLINE - File or lose your rights forever</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Important Facts -->
+        <section class="p-6 bg-white border-t-4 border-black">
+            <h2 class="text-xl font-bold mb-4">IMPORTANT FACTS</h2>
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                <div class="border-2 border-black p-4 bg-white">
+                    <p class="font-bold mb-2">Who is affected?</p>
+                    <p class="text-xs">Thousands of property owners with domestic wells, farm irrigation, livestock water, and small businesses in WRIA 1</p>
+                </div>
+                <div class="border-2 border-black p-4 bg-white">
+                    <p class="font-bold mb-2">What's at stake?</p>
+                    <p class="text-xs">Your ability to use your well without state permission, metering requirements, or seasonal shut-downs</p>
+                </div>
+                <div class="border-2 border-black p-4 bg-white">
+                    <p class="font-bold mb-2">Cost to defend?</p>
+                    <p class="text-xs">Legal fees can be $5,000-$25,000+ per property owner. Collective defense reduces costs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Footer -->
+        <footer class="bg-black text-white p-8 text-center border-t-8 border-black">
+            <div class="mb-4">
+                <p class="text-3xl font-bold uppercase tracking-widest mb-2">Join the Fight</p>
+                <p class="text-sm opacity-80 mb-3">Visit our website for updates, legal resources, and donation information:</p>
+
+                <!-- QR Code and Website -->
+                <div class="flex items-center justify-center gap-6 mb-4">
+                    <div class="bg-white p-3 rounded-lg">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://powwra.org" alt="QR Code to powwra.org" class="w-32 h-32">
+                    </div>
+                    <div class="text-left">
+                        <p class="text-sm mb-2 opacity-80">Scan to visit:</p>
+                        <a href="https://powwra.org" class="text-2xl font-bold">powwra.org</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-sm opacity-90 mb-6 space-y-1">
+                <p>Email: <strong>contact@powwra.org</strong></p>
+                <p class="italic">POWWRA is a registered 501(c)(4) nonprofit. Donations are not tax deductible.</p>
+                <p class="font-bold mt-3">Defending Our Wells • Our Farms • Our Property Rights</p>
+            </div>
+            <div class="text-[10px] leading-tight border-t border-white pt-4 opacity-70">
+                DISCLAIMER: This is not legal advice. Consult with a qualified water rights attorney about your specific situation. This flyer provides general information about the WRIA 1 adjudication and POWWRA's legal position.
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

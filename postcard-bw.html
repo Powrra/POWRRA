@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>POWWRA Postcard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: 6in 9in;
+            margin: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: white;
+        }
+
+        .page {
+            width: 6in;
+            height: 9in;
+            margin: 0;
+            padding: 0;
+            page-break-after: always;
+            position: relative;
+            background: white;
+        }
+
+        /* FRONT PAGE */
+        .front {
+            border: 8px solid black;
+        }
+
+        .front-header {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .front-header h1 {
+            font-size: 36pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .front-header p {
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+        .meetings-section {
+            padding: 30px 40px;
+            border-bottom: 8px solid black;
+        }
+
+        .meetings-section h2 {
+            font-size: 20pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 4px solid black;
+            padding-bottom: 10px;
+        }
+
+        .meeting {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 4px solid black;
+        }
+
+        .meeting .date {
+            font-size: 20pt;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .meeting .venue {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .meeting .address {
+            font-size: 13pt;
+        }
+
+        .message-section {
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .tagline {
+            font-size: 42pt;
+            font-weight: bold;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 14pt;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .cta {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .qr-box {
+            border: 4px solid black;
+            padding: 15px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .qr-box img {
+            width: 120px;
+            height: 120px;
+            display: block;
+        }
+
+        .website {
+            font-size: 24pt;
+            font-weight: bold;
+            border: 4px solid black;
+            padding: 12px 30px;
+            display: inline-block;
+        }
+
+        /* BACK PAGE */
+        .back {
+            border: 8px solid black;
+        }
+
+        .back-content {
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+
+        .back-left {
+            display: table-cell;
+            width: 50%;
+            padding: 40px 30px;
+            vertical-align: top;
+            border-right: 3px dashed black;
+        }
+
+        .back-message {
+            font-size: 14pt;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .back-message strong {
+            font-size: 16pt;
+        }
+
+        .back-urgent {
+            border: 4px solid black;
+            padding: 15px;
+            font-size: 12pt;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .back-right {
+            display: table-cell;
+            width: 50%;
+            padding: 40px 30px;
+            vertical-align: top;
+        }
+
+        .stamp-box {
+            border: 3px solid black;
+            height: 120px;
+            text-align: center;
+            padding-top: 35px;
+            font-size: 12pt;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .address-area {
+            border: 3px solid black;
+            height: 280px;
+            padding: 20px;
+        }
+
+        .line {
+            border-bottom: 1px solid black;
+            height: 40px;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 8pt;
+            padding: 0 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- FRONT PAGE -->
+<div class="page front">
+    <div class="front-header">
+        <h1>POWWRA</h1>
+        <p>Property Owners Water Well Rights Alliance</p>
+    </div>
+
+    <div class="meetings-section">
+        <h2>Community Meetings</h2>
+
+        <div class="meeting">
+            <div class="date">Tuesday, January 20 • 6:30 PM</div>
+            <div class="venue">Victor Community Club</div>
+            <div class="address">887 E. Smith Rd., Bellingham, WA</div>
+        </div>
+
+        <div class="meeting">
+            <div class="date">Thursday, January 22 • 6:30 PM</div>
+            <div class="venue">Haynie Grange</div>
+            <div class="address">3344 Haynie Rd., Blaine, WA</div>
+        </div>
+    </div>
+
+    <div class="message-section">
+        <div class="tagline">
+            Your Well.<br>
+            Your Property.<br>
+            Your Rights.
+        </div>
+
+        <div class="description">
+            Many Washington property owners with historical wells<br>
+            are facing threats to their water rights.
+        </div>
+
+        <div class="cta">
+            Get involved today!
+        </div>
+
+        <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://powwra.org" alt="QR Code">
+        </div>
+
+        <br>
+
+        <div class="website">
+            powwra.org
+        </div>
+    </div>
+</div>
+
+<!-- BACK PAGE -->
+<div class="page back">
+    <div class="back-content">
+        <div class="back-left">
+            <div class="back-message">
+                <strong>URGENT: Your water rights are at risk!</strong>
+                <br><br>
+
+                Thousands of property owners in WRIA 1 (Nooksack Basin) are facing threats to their water rights.
+                <br><br>
+
+                • Your well could be ranked "junior" to tribal claims<br>
+                • You may be forced to meter and report usage<br>
+                • Property values at risk
+                <br><br>
+
+                <strong>⚠ May 1, 2026 deadline looming</strong><br>
+                <strong>DON'T file alone - Join POWWRA!</strong>
+            </div>
+
+            <div class="back-urgent">
+                ⚠ ATTEND A MEETING TO<br>
+                LEARN HOW TO DEFEND<br>
+                YOUR RIGHTS
+            </div>
+        </div>
+
+        <div class="back-right">
+            <div class="stamp-box">
+                PLACE<br>
+                STAMP<br>
+                HERE
+            </div>
+
+            <div class="address-area">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        POWWRA is a registered 501(c)(4) nonprofit • contact@powwra.org • Donations are not tax deductible
+    </div>
+</div>
+
+</body>
+</html>

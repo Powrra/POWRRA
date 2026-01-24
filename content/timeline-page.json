@@ -1,0 +1,31 @@
+{
+  "pageTitle": "What's Happening to Our Water?",
+  "pageSubtitle": "Understanding the WRIA 1 Water Rights Adjudication",
+  "urgentDeadline": {
+    "date": "MAY 1, 2026",
+    "mainText": "DON'T File Alone - Join POWWRA's Coordinated Legal Challenge",
+    "warningText": "Filing with the state without legal support could make you sign away your rights. Join POWWRA to defend your well through coordinated legal action before the deadline."
+  },
+  "events": [
+    {
+      "date": "20",
+      "month": "JAN",
+      "title": "POWWRA Community Meeting",
+      "time": "Tuesday, 6:30 PM",
+      "venue": "Victor Community Club",
+      "address": "887 E. Smith Rd., Bellingham, WA",
+      "description": "Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.",
+      "tags": ["Community Organized", "Legal Info"]
+    },
+    {
+      "date": "22",
+      "month": "JAN",
+      "title": "POWWRA Community Meeting",
+      "time": "Thursday, 6:30 PM",
+      "venue": "Haynie Grange",
+      "address": "3344 Haynie Rd., Blaine, WA",
+      "description": "Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.",
+      "tags": ["Community Organized", "Legal Info"]
+    }
+  ]
+}
