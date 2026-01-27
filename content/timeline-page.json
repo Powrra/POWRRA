@@ -8,22 +8,52 @@
   },
   "events": [
     {
-      "date": "20",
-      "month": "JAN",
+      "date": "5",
+      "month": "FEB",
       "title": "POWWRA Community Meeting",
-      "time": "Tuesday, 6:30 PM",
-      "venue": "Victor Community Club",
-      "address": "887 E. Smith Rd., Bellingham, WA",
+      "time": "Thursday, 6:30 PM",
+      "venue": "Blaine Library",
+      "address": "610 3rd St, Blaine, WA 98230",
       "description": "Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.",
       "tags": ["Community Organized", "Legal Info"]
     },
     {
-      "date": "22",
-      "month": "JAN",
+      "date": "11",
+      "month": "FEB",
+      "title": "POWWRA Community Meeting",
+      "time": "Wednesday, 6:30 PM",
+      "venue": "Laurel Grange",
+      "address": "6172 WA-539 (Guide Meridian), Lynden, WA 98264",
+      "description": "Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.",
+      "tags": ["Community Organized", "Legal Info"]
+    },
+    {
+      "date": "12",
+      "month": "FEB",
+      "title": "POWWRA Community Meeting",
+      "time": "Thursday, 1:00 PM",
+      "venue": "Ferndale Library",
+      "address": "2125 Main St, Ferndale, WA 98248",
+      "description": "Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.",
+      "tags": ["Community Organized", "Legal Info"]
+    },
+    {
+      "date": "18",
+      "month": "FEB",
+      "title": "POWWRA Community Meeting",
+      "time": "Wednesday, 6:30 PM",
+      "venue": "Rome Grange Hall",
+      "address": "2821 Mt. Baker Hwy, Bellingham, WA 98226",
+      "description": "Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.",
+      "tags": ["Community Organized", "Legal Info"]
+    },
+    {
+      "date": "26",
+      "month": "FEB",
       "title": "POWWRA Community Meeting",
       "time": "Thursday, 6:30 PM",
-      "venue": "Haynie Grange",
-      "address": "3344 Haynie Rd., Blaine, WA",
+      "venue": "Camel Club",
+      "address": "216 Main St, Lynden, WA 98264",
       "description": "Learn about the WRIA 1 adjudication, understand the May 1, 2026 deadline, and connect with neighbors defending their water rights.",
       "tags": ["Community Organized", "Legal Info"]
     }
