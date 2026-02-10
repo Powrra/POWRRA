@@ -107,6 +107,19 @@
         </div>
     </nav>
 
+    <!-- Hidden form for Netlify detection -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="checkbox" name="join_member" />
+        <input type="checkbox" name="keep_informed" />
+        <input type="tel" name="phone" />
+        <select name="county"><option>Whatcom</option></select>
+        <input type="text" name="property_address" />
+        <input type="checkbox" name="water_use" />
+        <textarea name="comments"></textarea>
+    </form>
+
     <!-- Main Content -->
     <main id="app-content" class="flex-grow">
         <!-- JS Content Injection -->
@@ -1003,8 +1016,9 @@
                             <h3 class="text-2xl font-bold mb-6 text-center">Join POWWRA</h3>
                             <p class="text-center text-gray-600 mb-8">Apply to join and keep me updated</p>
 
-                            <form name="contact" method="POST" data-netlify="true" class="space-y-4">
+                            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-4">
                                 <input type="hidden" name="form-name" value="contact">
+                                <input type="hidden" name="bot-field">
                                 <div class="grid md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-bold mb-2">Full Name *</label>
